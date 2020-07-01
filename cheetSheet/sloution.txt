@@ -1,0 +1,6 @@
+HTTP :
+        methods :
+                   tshark -r httpMethod.pcap -Y "http.request.method == GET" -T fields -e http.request.method
+
+        Error Code :
+                   tshark -i 1 -Y http.response.code -r errorCode.pcap -T fields -e http.response.code

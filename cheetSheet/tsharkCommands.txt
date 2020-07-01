@@ -1,0 +1,42 @@
+tshark -r {filename}.pcap or .cap         ---------> show normal output
+tshark -r {filename}.pcap or .cap -V      ---------> Show full decodes 
+tshark -T pdml                            ---------> show PDML (XML) decodes
+tshark -T json                            ---------> Show JSON decodes
+tshark -V                                 ---------> Show "frame number" filed while live packet capturing only, It will decodes 
+tshark -O {protocol name}                 ---------> show the full details for the protocols specified, and show only the top-level detail line for all other protocols.
+tshark -G protocols                       ---------> To find abbrivations off the protocols
+tshark -PV | -PO                          ---------> print packet summary even when writing to a file and details
+tshark -f <capture filter>                ---------> used to specify a capture filter only when capturing on live {filter}
+          example :
+                    tshark -i 2 f "tcp port 80"
+tshark -F <file format>                   ---------> used when we capturing the packet to file and we need specify the file format
+          example : 
+                    tshark -i 2 -w file.pcap -F pcap
+    
+tshark -r filename.pcap -R | -Y <capture filter> -------> read filter ---"  "----
+tshark -D                                 ---------> to know what are all interfaces have
+tshark -i <interface number> | <interface name> ---> It will capture the packet from specified interface.
+tshark -i <interface number> | <interface name> -c <number of packets> --------> it will capture specified number of packets and exit output
+           example:    
+                    tshark -i 1 -c 15
+tshark -i <interface> -a duration:<seconds>   -----> Autostop , To capture the packets within specified time in seconds
+           example:
+                    tshark -i 1 -a duration:10 
+tshark -r filename.pcap -z conv,ip         --------> to view the conversation between ip's 
+
+tshark -w filename.pcap -a filesize:1      --------> capture the packet until the filesize is reaching 1KB
+
+
+                               
+
+HTTP ;
+
+    * To filter http methods use :-     http.request.method == "requestmethod"
+
+
+Some useful commands :
+
+ tshark -i 1 -Y http.response -T fields -e http.response.code -e text
+ tshark -i 1 -Y "http.response and tcp.port==80 and tcp.port == 443" -T fields -e http.response.code -e text
+ tshark -r forHttpErrorcode.pcap -q -z hosts                 -----------------> Query to ask hosts names in that file
+ tshark -r forHttpErrorcode.pcap -Y "dns.resp.name contains facebook.com"
