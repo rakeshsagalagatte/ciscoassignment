@@ -15,7 +15,7 @@ def error_codes(filename):
     #to get http error codes 
     #tshark -r forHttpErrorcode.pcap -Y "http.response"  -T fields -e http.response.code
     # Out = subprocess.Popen(['tshark', '-r', filename, '-Y', 'http.response.code > 300', '-T', 'fields', '-e', 'http.response.code'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT )
-    Out = subprocess.Popen(['tshark', '-r', filename, '-Y', 'http.response.code > 300', '-T', 'fields', '-e', 'http.response.code'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT )
+    Out = subprocess.Popen(['tshark', '-r', filename, '-Y', 'http.response.code > 400', '-T', 'fields', '-e', 'http.response.code'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT )
     stdout,stderr = Out.communicate()
     stdout = stdout.decode('utf-8')
     return stdout

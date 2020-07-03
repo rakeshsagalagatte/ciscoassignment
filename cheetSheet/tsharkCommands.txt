@@ -4,7 +4,7 @@ tshark -T pdml                            ---------> show PDML (XML) decodes
 tshark -T json                            ---------> Show JSON decodes
 tshark -V                                 ---------> Show "frame number" filed while live packet capturing only, It will decodes 
 tshark -O {protocol name}                 ---------> show the full details for the protocols specified, and show only the top-level detail line for all other protocols.
-tshark -G protocols                       ---------> To find abbrivations off the protocols
+tshark -G protocols                       ---------> To find abbrivations of the protocols
 tshark -PV | -PO                          ---------> print packet summary even when writing to a file and details
 tshark -f <capture filter>                ---------> used to specify a capture filter only when capturing on live {filter}
           example :
