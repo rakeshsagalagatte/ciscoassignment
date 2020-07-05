@@ -1,0 +1,102 @@
+ARP used to matching Data-link address with a layer 3 address , Usually an IP address:-
+
+
+1. Hardware type : such as ethernet , which is 1 
+
+        offset 0 
+
+2. Protocol Type : The type of layer 3 address used in the message , Usually IP 
+
+        offset 2
+
+3. Hardware address length : for a MAC address it is 6
+
+        offset 4
+
+4. Protocol Address Length  : for IP is 4 (4 Bytes)
+
+        offset 5 
+
+5. opcode : what kind of ARP message is this ?
+
+        This is at byte offset 7
+
+        Here are  the codes :
+
+        1. ARP Request 
+
+        2. ARP Replay 
+
+        3. RARP Request 
+
+        4. RARP Replay
+
+        5. DRARP Request
+
+        6. DRARP Replay
+
+        7. DRARP Error
+
+        8. InARP Request
+
+        9. InARP Replay
+
+6. Sender Hardware Address : the Physical address of the device sending the message 
+
+        offset 8 through 13 , one for each of the six Bytesof the MAC address 
+
+7. Sender Protocol Address : IP address of the device sending the message 
+
+        offset 14 through 17 , it's a 4 Byte address 
+
+8. Target Hardware address : Physical address of the destination device 
+
+        offset 18 through 23 
+
+9. Target Protocol Address : IP address ,
+
+        offset 24 through 27
+
+
+
+
+Example :
+
+         tcpdump -i wlan "arp[7]=1" -n -vvv
+
+         tcpdump -r forHttpErrorcode.pcap  "arp[7]=1" -n -vvv | cut -d' ' -f11  
+
+         tcpdump -r forHttpErrorcode.pcap  "arp[7]=2" -n -vvv | cut -d' ' -f11
+
+         tcpdump -r forHttpErrorcode.pcap  "arp[7]=1" -n -vvv   -------> Request
+
+         tcpdump -r forHttpErrorcode.pcap  "arp[7]=2" -n -vvv   -------> Response
+
+         tshark -r forHttpErrorcode.pcap -Y arp -T fields -e arp.proto.type       ---------> Protocol Type.
+
+         tshark -r forHttpErrorcode.pcap -Y arp -T fields -e arp.proto.type
+
+         tshark -r forHttpErrorcode.pcap -Y arp.opcode==1 -T fields -e arp.src.proto_ipv4 -e arp.dst.proto_ipv4
+
+         tshark -r forHttpErrorcode.pcap -Y arp -T fields -e arp.dst.hw_mac
+
+
+         NOTE: TO GET ARP FIELDS IN TSHARK USE : tshark -G fields | grep arp | more
+
+
+         tshark -r forHttpErrorcode.pcap -Y arp.opcode==2 -T fields -e arp.src.hw_mac    ------> Resolved MAC address
+
+         tshark -r forHttpErrorcode.pcap -Y arp.opcode==2 -T fields -e arp.src.hw_mac -e arp.dst.hw_mac 
+
+
+
+
+
+
+         
+
+
+
+
+
+

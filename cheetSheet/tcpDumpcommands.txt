@@ -43,6 +43,12 @@ command:
      Saving traffic into .pcap file
        tcpdump -w traffic.pcap -i 1 -v 'tcp and net 192.168.43.0/24'
 
+
+
+
+
+
+
        
 
     
